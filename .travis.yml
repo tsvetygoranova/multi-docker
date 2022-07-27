@@ -12,6 +12,7 @@ script:
 after_success:
    - docker build -t tsvety/multi-client ./client
    - docker build -t tsvety/multi-nginx ./nginx
+   - docker build -t tsvety/multi-server ./server
    - docker build -t tsvety/multi-worker ./worker
 
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
