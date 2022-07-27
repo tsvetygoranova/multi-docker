@@ -10,15 +10,15 @@ script:
   - docker run -e CI=true tsvety/react-test npm run test
 
 after_success:
-   - docker build -t tsvety/multi-client ./client
-   - docker build -t tsvety/multi-nginx ./nginx
-   - docker build -t tsvety/multi-server ./server
-   - docker build -t tsvety/multi-worker ./worker
+   - docker build -t tsvetygoranova/multi-client ./client
+   - docker build -t tsvetygoranova/multi-nginx ./nginx
+   - docker build -t tsvetygoranova/multi-server ./server
+   - docker build -t tsvetygoranova/multi-worker ./worker
 
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
    
-   - docker push tsvety/multi-client
-   - docker push tsvety/multi-nginx
-   - docker push tsvety/multi-server
-   - docker push tsvety/multi-worker
+   - docker push tsvetygoranova/multi-client
+   - docker push tsvetygoranova/multi-nginx
+   - docker push tsvetygoranova/multi-server
+   - docker push tsvetygoranova/multi-worker
    
