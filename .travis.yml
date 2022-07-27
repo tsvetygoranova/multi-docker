@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before-install:
+  - docker build -t tsvety/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true tsvety/react-test npm run test
+
+after_success:
+   - docker build -t tsvety/multi-client ./client
+   - docker build -t tsvety/multi-nginx ./nginx
+   - docker build -t tsvety/multi-worker ./worker
+
+   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+   
+   - docker push tsvety/multi-client
+   - docker push tsvety/multi-nginx
+   - docker push tsvety/multi-server
+   - docker push tsvety/multi-worker
+   
